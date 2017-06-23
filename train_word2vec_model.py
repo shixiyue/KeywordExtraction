@@ -4,13 +4,12 @@ from optparse import OptionParser
 
 import gensim
 
-def read_corpus(path_to_corpus, output_path, min_count=10, size=300, window=10):
+def read_corpus(path_to_corpus, output_path, min_count=10, size=300, window=5):
     workers = multiprocessing.cpu_count()
     sentences = gensim.models.word2vec.LineSentence(path_to_corpus)
     model = gensim.models.Word2Vec(sentences, min_count=min_count, size=size,
                                    window=window, sg=1, workers=workers)
     model.save(output_path)
-
 
 def main():
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s')
@@ -50,7 +49,6 @@ def main():
     option_dict["output_path"] = args[1]
 
     read_corpus(**option_dict)
-
 
 if __name__ == "__main__":
     main()
