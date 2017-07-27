@@ -5,26 +5,25 @@ import sys
 
 '''
 To set LD_PRELOAD so that Java program can call this part of code without exception.
-Delete/comment out this part of code if you run the Python sript directly.
 '''
-'''LD_PRELOAD = 'LD_PRELOAD'
-SYS_EXECUTABLE = '/usr/bin/python3'
-SYS_ARGV = ['/data/word2vec/extract_keyword.py']
-PYTHON = "/usr/lib64/libpython3.4m.so"
+try: 
+    sys.argv
+except:
+    LD_PRELOAD = 'LD_PRELOAD'
+    SYS_EXECUTABLE = '/usr/bin/python3'
+    SYS_ARGV = ['/data/keyword/extract_keyword.py']
+    PYTHON = "/usr/lib64/libpython3.4m.so"
+    rerun = True
+    if not LD_PRELOAD in os.environ:
+        os.environ['LD_PRELOAD'] = ":" + PYTHON
+    elif not PYTHON in os.environ.get(LD_PRELOAD):
+        os.environ['LD_PRELOAD'] += ":" + PYTHON
+    else:
+        rerun = False
+        sys.path.append(os.path.abspath('/data/keyword'))
 
-rerun = True
-if not LD_PRELOAD in os.environ:
-    os.environ['LD_PRELOAD'] = ":" + PYTHON
-elif not PYTHON in os.environ.get(PYTHON):
-    os.environ['LD_PRELOAD'] += ":" + PYTHON
-else:
-    rerun = False
-
-if rerun:
-     os.execve(SYS_EXECUTABLE, ['python3'] + SYS_ARGV, os.environ)
-
-sys.path.append(os.path.abspath('/data/word2vec'))'''
-# Until here
+    if rerun:
+         os.execve(SYS_EXECUTABLE, ['python3'] + SYS_ARGV, os.environ)
 
 import io
 import itertools
@@ -37,7 +36,7 @@ from utility import *
 
 model = Word2Vec.load("word2vec/wiki.en.word2vec.model")
 
-def extract_keywords(text, num_of_keywords, threshold=0.4, word_similarity_weight=0.6):
+def extract_keywords(text, num_of_keywords, threshold=0.4, word_similarity_weight=0.9):
     """
     Returns a set of keywords. It is the main function of the script.
     """

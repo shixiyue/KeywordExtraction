@@ -7,8 +7,8 @@ stemmer = PorterStemmer()
 score_array = []
 
 num_of_keywords = 15
-document_directory = 'document-short/'
-keywords_directory = 'keywords-short/'
+document_directory = 'document-long/'
+keywords_directory = 'keywords-long/'
 
 output_directory = 'output/'
 os.makedirs(os.path.dirname(output_directory), exist_ok=True)
@@ -57,8 +57,8 @@ def evaluate(threshold, word_similarity_weight):
 	print()
 
 def try_parameters():
-	word_similarity_weights = [0.65, 0.7, 0.75, 0.8, 0.85, 0.9]
-	thresholds = [0.4, 0.45, 0.5, 0.55, 0.6]
+	word_similarity_weights = [0.9]
+	thresholds = [0.8]
 	for word_similarity_weight in word_similarity_weights:
 		for threshold in thresholds:
 			print(word_similarity_weight)
