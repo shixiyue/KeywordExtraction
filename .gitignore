@@ -1,9 +1,2 @@
-document/
-word2vec/
 __pycache__/
-*.txt
-*.abstr
-evaluation-script/
-*.json
-*.key
 *.out
