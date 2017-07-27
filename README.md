@@ -1,7 +1,10 @@
 # Keyword Extraction
 
+## Algorithm Overview
+https://docs.google.com/document/d/1K4neMHBZC0Y9b6x1Da1NVARnLcxl6mXT7du8yWCYd2c/edit?usp=sharing
+
 ## Requirement
-- The project is written in Python 3.
+- The project is written in python 3.
 - Install numpy, scipy, gensim, networkx, spacy, inflection. To run the evaluation script, nltk is required as well.
 
 (spacy is a natural language processing tool that is much faster and more accurate than nltk.
@@ -11,6 +14,7 @@ evaluation processure.)
 
 ## Files included
 
+### Main Part (Compulsary!!!)
 extract_keyword.py: 
 - It is the main part.
 - To run the scipt, call the function extract_keywords(text, num_of_keywords, threshold=0.6, word_similarity_weight=0.4)
@@ -23,6 +27,9 @@ and word similarity = 0.273369846168
 utility.py:
 - It provides some utility methods such as normalize_token and is_meaningful_token
 
+word2vec/wiki.em.word2vec.model, word2vec/wiki.en.word2vec.model.syn1neg.npy, word2vec/wiki.en.word2vec.model.wv.syn0.npy: Please find them in the readpeer server /data/keyword/word2vec or use the above script to train a new model.
+
+### Evaluation
 evaluate.py:
 - It calculates the precision, recall and f1 score of keyword extraction based on 2 datasets:
   * Inspect (paper abstracts, using the test set which consists of 500 documents with less than 200 tokens/doc)
@@ -41,4 +48,3 @@ evaluate.py:
 word2vec/process_wiki.py: Processes the wikipedia document, to prepare for training for word2vec
 word2vec/custom_wiki_corpus: Overrides original tokenization method in wikicorpus.py. It will singularize plural nouns.
 word2vec/train_word2vec_model: It trains word2vec model using the processed wikipedia corpus.
-word2vec/wiki.em.word2vec.model: Please find in the readpeer server /data/keyword/word2vec or use the above script to train a new model.

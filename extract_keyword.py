@@ -3,6 +3,7 @@
 import os
 import sys
 
+PATH = '/data/keyword' # the folder that contains the script. Modify it if you place the code in a different folder.
 '''
 To set LD_PRELOAD so that Java program can call this part of code without exception.
 '''
@@ -10,9 +11,9 @@ try:
     sys.argv
 except:
     LD_PRELOAD = 'LD_PRELOAD'
-    SYS_EXECUTABLE = '/usr/bin/python3'
-    SYS_ARGV = ['/data/keyword/extract_keyword.py']
-    PYTHON = "/usr/lib64/libpython3.4m.so"
+    SYS_EXECUTABLE = '/usr/bin/python3' # python3 path <- result of which python3
+    SYS_ARGV = [PATH + '/extract_keyword.py'] # update it if you place the code in a different folder
+    PYTHON = "/usr/lib64/libpython3.4m.so" # update it if libpython3.4m.so is in a different folder
     rerun = True
     if not LD_PRELOAD in os.environ:
         os.environ['LD_PRELOAD'] = ":" + PYTHON
@@ -20,7 +21,7 @@ except:
         os.environ['LD_PRELOAD'] += ":" + PYTHON
     else:
         rerun = False
-        sys.path.append(os.path.abspath('/data/keyword'))
+    print(rerun)
 
     if rerun:
          os.execve(SYS_EXECUTABLE, ['python3'] + SYS_ARGV, os.environ)
@@ -32,9 +33,10 @@ import networkx as nx
 
 from gensim.models.word2vec import Word2Vec
 
+sys.path.append(os.path.abspath(PATH))
 from utility import *
 
-model = Word2Vec.load("word2vec/wiki.en.word2vec.model")
+model = Word2Vec.load("word2vec/wiki.en.word2vec.model") # the path to word2vec model.
 
 def extract_keywords(text, num_of_keywords, threshold=0.4, word_similarity_weight=0.9):
     """
